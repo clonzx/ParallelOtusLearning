@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace Parallel;
 
@@ -7,7 +8,10 @@ class Program
     static void Main()
     {
         int[] arraySizes = { 100000, 1000000, 10000000 };
-
+        var processorName = Registry.GetValue("HKEY_LOCAL_MACHINE\\HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "ProcessorNameString",  "");
+        Console.WriteLine($"Окружение:");
+        Console.WriteLine($"  Процессор: {processorName}  ядер {Environment.ProcessorCount}");
+        Console.WriteLine($"  ОС: {Environment.OSVersion}");
         foreach (var size in arraySizes)
         {
             Console.WriteLine($"-------------Вычисления для массива из {size} элементов-------------");
